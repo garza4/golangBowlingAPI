@@ -2,28 +2,31 @@ package main
 import "fmt"
 
 func main(){
-
+	fmt.Printf("Hellcooper \n")
 }
 
 func startGame(g Game){
 	numPlayers := getNumPlayers(g)
 	for i, num := range g.playerScore{
 		g.playerScore[i] = 0
-	} 
-	
+	}
+
 }
 
 
-
-func getNumPlayers(g Game){
-	return g.players
+func setNumPlayers(g Game, players int){
+	g.numPlayers = players
 }
 
+func getNumPlayers(g Game) int {
+	return g.numPlayers
+}
+
+var m map[string]bool
 type Game struct{
-	players int
-	playerScore [players] int
-	playerTurn [players] bool
-	var m map[string]bool //map strings to boolean
+	numPlayers int
+	playerScore []int
+	playerTurn []bool
 
 }
 
