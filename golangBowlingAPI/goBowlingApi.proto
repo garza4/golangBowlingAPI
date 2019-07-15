@@ -1,0 +1,17 @@
+syntax = "proto2";
+service BowlingService {
+	rpc Bowl (Throw) returns (Score);
+}
+
+message Throw{
+	optional string pins = 1; 
+}
+
+message Score {
+	optional string message = 1;
+
+
+}
+
+
+
