@@ -1,0 +1,19 @@
+syntax = "proto3";
+service BowlingService {
+	rpc Bowl (Throw) returns (Score) {};
+
+ 
+}
+
+message Throw{
+	int32 pins = 1; 
+}
+
+message Score {
+	int32 score = 1;
+
+
+}
+
+
+
