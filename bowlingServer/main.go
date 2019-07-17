@@ -31,9 +31,9 @@ type BowlingServiceServer struct{}
 //throw the bowling ball and get the result from the throw...
 //pb is the generated protoc file. 
 func (s *BowlingServiceServer) Bowl(ctx context.Context, throw *pb.Throw) (*pb.Score,error){
-	score := *pb.GetScore()
+	score := throw.GetScore()
 
-	return &score,nil
+	return pb.GetScore(),nil
 
 }
 
