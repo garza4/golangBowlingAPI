@@ -1,12 +1,13 @@
 syntax = "proto3";
+package golangBowlingAPI;
 service BowlingService {
-	rpc Bowl (Throw) returns (Score) {};
-
+	rpc Bowl (Throw) returns (Throw) {};
+	//rpc DisplayScore(Throw)returns(Score){}; 
  
 }
 
 message Throw{
-	int32 score = 1; 
+	repeated bool pins = 1 [packed=true]; 
 }
 
 message Score{

@@ -34,7 +34,7 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
 type Throw struct {
-	Score int32 `protobuf:"varint,1,opt,name=score" json:"score,omitempty"`
+	Pins []bool `protobuf:"varint,1,rep,packed,name=pins" json:"pins,omitempty"`
 }
 
 func (m *Throw) Reset()                    { *m = Throw{} }
@@ -42,11 +42,11 @@ func (m *Throw) String() string            { return proto.CompactTextString(m) }
 func (*Throw) ProtoMessage()               {}
 func (*Throw) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
 
-func (m *Throw) GetScore() int32 {
+func (m *Throw) GetPins() []bool {
 	if m != nil {
-		return m.Score
+		return m.Pins
 	}
-	return 0
+	return nil
 }
 
 type Score struct {
@@ -66,8 +66,8 @@ func (m *Score) GetResult() int32 {
 }
 
 func init() {
-	proto.RegisterType((*Throw)(nil), "Throw")
-	proto.RegisterType((*Score)(nil), "Score")
+	proto.RegisterType((*Throw)(nil), "golangBowlingAPI.Throw")
+	proto.RegisterType((*Score)(nil), "golangBowlingAPI.Score")
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -81,7 +81,7 @@ const _ = grpc.SupportPackageIsVersion4
 // Client API for BowlingService service
 
 type BowlingServiceClient interface {
-	Bowl(ctx context.Context, in *Throw, opts ...grpc.CallOption) (*Score, error)
+	Bowl(ctx context.Context, in *Throw, opts ...grpc.CallOption) (*Throw, error)
 }
 
 type bowlingServiceClient struct {
@@ -92,9 +92,9 @@ func NewBowlingServiceClient(cc *grpc.ClientConn) BowlingServiceClient {
 	return &bowlingServiceClient{cc}
 }
 
-func (c *bowlingServiceClient) Bowl(ctx context.Context, in *Throw, opts ...grpc.CallOption) (*Score, error) {
-	out := new(Score)
-	err := grpc.Invoke(ctx, "/BowlingService/Bowl", in, out, c.cc, opts...)
+func (c *bowlingServiceClient) Bowl(ctx context.Context, in *Throw, opts ...grpc.CallOption) (*Throw, error) {
+	out := new(Throw)
+	err := grpc.Invoke(ctx, "/golangBowlingAPI.BowlingService/Bowl", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -104,7 +104,7 @@ func (c *bowlingServiceClient) Bowl(ctx context.Context, in *Throw, opts ...grpc
 // Server API for BowlingService service
 
 type BowlingServiceServer interface {
-	Bowl(context.Context, *Throw) (*Score, error)
+	Bowl(context.Context, *Throw) (*Throw, error)
 }
 
 func RegisterBowlingServiceServer(s *grpc.Server, srv BowlingServiceServer) {
@@ -121,7 +121,7 @@ func _BowlingService_Bowl_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/BowlingService/Bowl",
+		FullMethod: "/golangBowlingAPI.BowlingService/Bowl",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BowlingServiceServer).Bowl(ctx, req.(*Throw))
@@ -130,7 +130,7 @@ func _BowlingService_Bowl_Handler(srv interface{}, ctx context.Context, dec func
 }
 
 var _BowlingService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "BowlingService",
+	ServiceName: "golangBowlingAPI.BowlingService",
 	HandlerType: (*BowlingServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -145,14 +145,14 @@ var _BowlingService_serviceDesc = grpc.ServiceDesc{
 func init() { proto.RegisterFile("golangBowlingAPI.proto", fileDescriptor0) }
 
 var fileDescriptor0 = []byte{
-	// 132 bytes of a gzipped FileDescriptorProto
+	// 144 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x4b, 0xcf, 0xcf, 0x49,
 	0xcc, 0x4b, 0x77, 0xca, 0x2f, 0xcf, 0xc9, 0xcc, 0x4b, 0x77, 0x0c, 0xf0, 0xd4, 0x2b, 0x28, 0xca,
-	0x2f, 0xc9, 0x57, 0x92, 0xe5, 0x62, 0x0d, 0xc9, 0x28, 0xca, 0x2f, 0x17, 0x12, 0xe1, 0x62, 0x2d,
-	0x4e, 0xce, 0x2f, 0x4a, 0x95, 0x60, 0x54, 0x60, 0xd4, 0x60, 0x0d, 0x82, 0x70, 0x94, 0xe4, 0xb9,
-	0x58, 0x83, 0x41, 0x0c, 0x21, 0x31, 0x2e, 0xb6, 0xa2, 0xd4, 0xe2, 0xd2, 0x9c, 0x12, 0xa8, 0x3c,
-	0x94, 0x67, 0xa4, 0xc5, 0xc5, 0x07, 0x35, 0x33, 0x38, 0xb5, 0xa8, 0x2c, 0x33, 0x39, 0x55, 0x48,
-	0x82, 0x8b, 0x05, 0x24, 0x22, 0xc4, 0xa6, 0x07, 0x36, 0x58, 0x8a, 0x4d, 0x0f, 0x6c, 0x82, 0x12,
-	0x43, 0x12, 0x1b, 0xd8, 0x4a, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0xad, 0x29, 0x9a, 0xa7,
-	0x8c, 0x00, 0x00, 0x00,
+	0x2f, 0xc9, 0x17, 0x12, 0x40, 0x17, 0x57, 0x92, 0xe7, 0x62, 0x0d, 0xc9, 0x28, 0xca, 0x2f, 0x17,
+	0x12, 0xe3, 0x62, 0x29, 0xc8, 0xcc, 0x2b, 0x96, 0x60, 0x54, 0x60, 0xd6, 0xe0, 0x70, 0x62, 0x12,
+	0x60, 0x0c, 0x02, 0xf3, 0x41, 0x0a, 0x82, 0x93, 0xf3, 0x8b, 0x52, 0x85, 0xc4, 0xb8, 0xd8, 0x8a,
+	0x52, 0x8b, 0x4b, 0x73, 0x4a, 0x24, 0x18, 0x15, 0x18, 0x35, 0x58, 0x83, 0xa0, 0x3c, 0x23, 0x1f,
+	0x2e, 0x3e, 0xa8, 0x79, 0xc1, 0xa9, 0x45, 0x65, 0x99, 0xc9, 0xa9, 0x42, 0x56, 0x5c, 0x2c, 0x20,
+	0x11, 0x21, 0x71, 0x3d, 0x0c, 0x67, 0x80, 0xed, 0x92, 0xc2, 0x25, 0xa1, 0xc4, 0x90, 0xc4, 0x06,
+	0x76, 0xa8, 0x31, 0x20, 0x00, 0x00, 0xff, 0xff, 0x71, 0x60, 0x2a, 0xc4, 0xc2, 0x00, 0x00, 0x00,
 }

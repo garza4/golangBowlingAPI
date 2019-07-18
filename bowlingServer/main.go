@@ -30,12 +30,25 @@ type BowlingServiceServer struct{}
 
 //throw the bowling ball and get the result from the throw...
 //pb is the generated protoc file. 
-func (s *BowlingServiceServer) Bowl(ctx context.Context, throw *pb.Throw) (*pb.Score,error){
-	score := throw.GetScore()
-
-	return pb.GetScore(),nil
+func (s *BowlingServiceServer) Bowl(ctx context.Context, throw *pb.Throw) (*pb.Throw,error){
+	
+	return throw,nil
 
 }
+
+//func (s *BowlingServiceServer) DisplayScore(ctx context.Context,throw *pb.Throw) (*pb.Score,error){
+//	scoreArray := throw.Pins
+//	*pb.Score score = 0
+//	for i, boolean := range scoreArray{
+//		if boolean{
+//			score += i
+//
+//		}
+//	
+//	}
+//	return throw,nil
+
+//}
 
 
 
@@ -52,7 +65,9 @@ func main(){
 	bServer := &BowlingServiceServer{}
 	grpcServer := grpc.NewServer()
 	pb.RegisterBowlingServiceServer(grpcServer,bServer)
-
+	if err := grpcServer.Serve(lis);err != nil{
+		log.Fatalf("failed to serve: %v", err)
+	}
 
 	fmt.Printf("Hellcooper \n")
 }
