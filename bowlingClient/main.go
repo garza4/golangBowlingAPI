@@ -6,14 +6,17 @@ import (
 )
 
 func main(){
-	conn,err := grpc.Dial("localhost:50051")
+	conn,err := grpc.Dial("localhost:50051",grpc.WithInsecure())
 	if err != nil{
-	
+		fmt.println(err)
 	}
 	defer conn.Close()
-	client := pb.NewBowlingAPIClient(conn)
-	play,err := client.Bowl(context.Background(),&pb.Throw()) //play bowling? 
-	fmt.printF("Hello Cooper")
+	client := pb.NewBowlingServiceClient(conn)
+	play,err := client.Bowl(context.Background(),&pb.Throw{Score: 3}) //play bowling? 
+	if err != nil {
+	fmt.Println(err)
+	}
+	fmt.Println(play)
 
 
 }
