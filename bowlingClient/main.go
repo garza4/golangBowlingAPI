@@ -13,7 +13,7 @@ func main(){
 	}
 	defer conn.Close()
 	client := pb.NewBowlingServiceClient(conn)
-	play,err := client.Bowl(context.Background(),&pb.Score{Result: 3}) //play bowling? 
+	play,err := client.Bowl(context.Background(),&pb.Throw{Pins: 3}) //play bowling? 
 	if err != nil {
 	fmt.Println(err)
 	}
