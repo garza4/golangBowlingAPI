@@ -1,5 +1,6 @@
 package main
 import (
+	"context"
 	"fmt"
 	"google.golang.org/grpc"
 	pb "golangBowlingAPI/golangBowlingAPI"
@@ -8,11 +9,11 @@ import (
 func main(){
 	conn,err := grpc.Dial("localhost:50051",grpc.WithInsecure())
 	if err != nil{
-		fmt.println(err)
+		fmt.Println(err)
 	}
 	defer conn.Close()
 	client := pb.NewBowlingServiceClient(conn)
-	play,err := client.Bowl(context.Background(),&pb.Throw{Score: 3}) //play bowling? 
+	play,err := client.Bowl(context.Background(),&pb.Score{Result: 3}) //play bowling? 
 	if err != nil {
 	fmt.Println(err)
 	}

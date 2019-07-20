@@ -7,7 +7,7 @@ service BowlingService {
 }
 
 message Throw{
-	int32 pins = 1  
+	int32 pins = 1;  
 }
 
 message Score{
