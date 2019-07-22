@@ -14,7 +14,10 @@ message Score{
 	int32 result = 1; 
 }
 
-
+message PlayerScoreStack{
+	string history = 1;
+	int32 score = 2;	
+}
 
 
 
