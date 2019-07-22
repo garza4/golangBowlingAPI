@@ -2,7 +2,7 @@ syntax = "proto3";
 package golangBowlingAPI;
 service BowlingService {
 	rpc Bowl (Throw) returns (Score) {};
-	//rpc DisplayScore(Throw)returns(Score){}; 
+	 
  
 }
 
@@ -13,6 +13,7 @@ message Throw{
 message Score{
 	int32 result = 1; 
 }
+
 
 
 

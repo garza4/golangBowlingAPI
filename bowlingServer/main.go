@@ -8,8 +8,7 @@ import(
 	"context"
 	//"math"
 	"net"
-	//"sync"
-	//"time"
+	"math/rand"
 
 	"google.golang.org/grpc"
 	//"github.com/golang/protobuf/proto"
@@ -24,31 +23,36 @@ import(
 
 type BowlingServiceServer struct{}
 
+type PlayerScoreStack struct{
+	history []string
+	score int32
+}
 
 
-
-
+var strike int32 = 10
+var spare int32 = 10
 //throw the bowling ball and get the result from the throw...
 //pb is the generated protoc file. 
 func (s *BowlingServiceServer) Bowl(ctx context.Context, throw *pb.Throw) (*pb.Score,error){
-	//result := new *pb.Score{5}
-	return &pb.Score{Result: 5},nil
+	player := new(PlayerScoreStack)
+
+	throw.Pins = rand.Int31n(10)
+	if throw.GetPins() ==  strike{
+		player.history = append(player.history, "STRIKE")
+		player.score += strike
+		//elif second turn and totalPins=10: player.history = append(player.history("SPARE"))
+	}else{
+		player.score += throw.GetPins()
+	}
+	fmt.Println(player.score)
+
+
+
+	return &pb.Score{Result: player.score},nil
 
 }
 
-//func (s *BowlingServiceServer) DisplayScore(ctx context.Context,throw *pb.Throw) (*pb.Score,error){
-//	scoreArray := throw.Pins
-//	*pb.Score score = 0
-//	for i, boolean := range scoreArray{
-//		if boolean{
-//			score += i
-//
-//		}
-//	
-//	}
-//	return throw,nil
 
-//}
 
 
 
