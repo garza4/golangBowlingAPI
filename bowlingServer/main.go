@@ -35,16 +35,27 @@ var spare int32 = 10
 //pb is the generated protoc file. 
 func (s *BowlingServiceServer) Bowl(ctx context.Context, throw *pb.Throw) (*pb.Score,error){
 	player := new(PlayerScoreStack)
-
-	throw.Pins = rand.Int31n(10)
-	if throw.GetPins() ==  strike{
+	//totalPins := 0
+	throw.Pins = rand.Int31n(11) //number of pins hit
+	if throw.GetPins() == 0{
+		fmt.Println("No pins hit")
+	}
+	
+	if(throw.GetPins() == strike){
+		fmt.Println("STRIKE")
 		player.history = append(player.history, "STRIKE")
 		player.score += strike
-		//elif second turn and totalPins=10: player.history = append(player.history("SPARE"))
+	//elif second turn and totalPins=10: player.history = append(player.history("SPARE"))
+	}else if(throw.Pins + rand.Int31n(strike - throw.Pins) == spare){
+		 fmt.Println("SPARE")
+		 player.history = append(player.history, "SPARE")
+		 player.score += spare
+
 	}else{
+		player.history = append(player.history, "")
 		player.score += throw.GetPins()
 	}
-	fmt.Println(player.score)
+	fmt.Println(player.history)
 
 
 
