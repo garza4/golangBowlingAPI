@@ -1,7 +1,7 @@
 syntax = "proto3";
 package golangBowlingAPI;
 service BowlingService {
-	rpc Bowl (Throw) returns (Score) {};
+	rpc Bowl (Throw) returns (PlayerScoreStack) {};
 	 
  
 }

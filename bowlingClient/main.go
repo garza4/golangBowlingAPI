@@ -23,22 +23,26 @@ func main(){
 	var score int32 = 0
 	for i := 0; i < 10; i++{
 		play,err := client.Bowl(context.Background(),&pb.Throw{Pins:0})
-		scoreStack = append(scoreStack,play.Result)
-		//fmt.Println(play.player)
-		if strike.Pop() != nil && strike.Pop() == true{
-			scoreStack[indexHistory] += play.Result
+		scoreStack = append(scoreStack,play.Score)
+		fmt.Println(play)
+		if strike.Pop() == true{
+			scoreStack[indexHistory] += play.Score
 		}
 
-		if spare.Pop() != nil && spare.Pop() == true{
-			scoreStack[indexHistory] += play.Result
+		if spare.Pop() == true{
+			fmt.Println("was a spare, update old score ", scoreStack[indexHistory])
+			scoreStack[indexHistory] += play.Score
+			fmt.Println("Good Spare! ", scoreStack[indexHistory])
 		}
-
-		if(pb.PlayerScoreStack{}.History == "STRIKE"){
+		//fmt.Println(play.History, " looking for spares and strikes")
+		if(play.History == "STRIKE"){
 			strike.Push(true)
 			strike.Push(true)
 			indexHistory = i
-		}else if(pb.PlayerScoreStack{}.History == "SPARE"){
+
+		}else if(play.History == "SPARE"){
 			spare.Push(true)
+			indexHistory = i
 		}else{
 			continue
 		}
@@ -46,7 +50,7 @@ func main(){
 		if err != nil{
 			fmt.Println(err)
 		}
-		//fmt.Println(i, " ", play)
+		fmt.Println(play, " ", i)
 	}
 
 	for _,element := range scoreStack{
