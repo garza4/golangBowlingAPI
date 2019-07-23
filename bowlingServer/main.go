@@ -47,19 +47,19 @@ func (s *BowlingServiceServer) Bowl(ctx context.Context, throw *pb.Throw) (*pb.P
 	if(throw.GetPins() == strike){
 		fmt.Println("STRIKE")
 		player.history = "STRIKE"//append(player.history, "STRIKE")
-		player.score += strike
+		player.score = strike
 	//elif second turn and totalPins=10: player.history = append(player.history("SPARE"))
 	}else if(throw.GetPins() + rand.Int31n(11 - throw.GetPins()) == spare){
 		 fmt.Println("SPARE")
 		 player.history = "SPARE"//append(player.history, "SPARE")
-		 player.score += spare
+		 player.score = spare
 
 	}else{
-		//player.history = append(player.history, "")
-		player.score += throw.GetPins()
+		player.history = "No Multiplier"
+		player.score = throw.GetPins() + rand.Int31n(11-throw.GetPins()) 
+		fmt.Println(player.score, "NO MULTIPLY")
 	}
-	player.history = ""
-	fmt.Println(player.history)
+	//fmt.Println(player.history)
 
 
 

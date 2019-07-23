@@ -22,21 +22,19 @@ func main(){
 	var spare = st.New()
 	var score int32 = 0
 	for i := 0; i < 10; i++{
-		play,err := client.Bowl(context.Background(),&pb.Throw{})
+		play,err := client.Bowl(context.Background(),&pb.Throw{Pins:0})
 		scoreStack = append(scoreStack,play.Score)
-		fmt.Println("Score ", play.Score, " at index ", i)
-		if(strike.Pop() == true){
-			fmt.Println("STRIKE!! update old score of" , scoreStack[indexHistory])
-			scoreStack[indexHistory] += play.GetScore()
+		//fmt.Println(play)
+		if strike.Pop() == true{
+			fmt.Println("STRIKE!!" , scoreStack[indexHistory])
+			scoreStack[indexHistory] += play.Score
 			fmt.Println("UPDATE ", scoreStack[indexHistory], " at index ", indexHistory)
-		}else if(spare.Pop() == true){
-			fmt.Println("was a spare, update old score of ", scoreStack[indexHistory], " at index ", indexHistory)
-			scoreStack[indexHistory] += play.GetScore()
-			fmt.Println("UPDATE for SPARE! ", scoreStack[indexHistory], " at index ", indexHistory)
-		}else{
+		}
 
-			scoreStack[i] = play.GetScore()
-		
+		if spare.Pop() == true{
+			fmt.Println("was a spare, update old score ", scoreStack[indexHistory])
+			scoreStack[indexHistory] += play.Score
+			fmt.Println("UPDATE for SPARE! ", scoreStack[indexHistory])
 		}
 		if(play.History == "STRIKE"){
 			strike.Push(true)
@@ -54,9 +52,9 @@ func main(){
 		if err != nil{
 			fmt.Println(err)
 		}
-		//fmt.Println(scoreStack)
+		//fmt.Println(play, " ", i)
 	}
-	fmt.Println(scoreStack)
+
 	for _,element := range scoreStack{
 		score += element
 	}
