@@ -1,5 +1,5 @@
 # golang Bowling Using gRPC
-This code is a bowling API created using golang and gRPC
+This code is an introduction to gRPC. This simple program uses golang and gRPC to simulate bowling using pseduorandom number generation and transmits data between the client and the server.
 ## 
 To run the code you have to have grpc installed and protobuf. Here is a link to the grpc Golang page if curious about any grpc/golang details: https://grpc.io/docs/tutorials/basic/go/
 
