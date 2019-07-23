@@ -1,4 +1,4 @@
-# golangBowlingAPI
+# golangBowlingWith gRPC
 This code is a bowling API created using golang and gRPC
 ## 
 To run the code you have to have grpc installed and protobuf. Here is a link to the grpc Golang page if curious about any grpc/golang details: https://grpc.io/docs/tutorials/basic/go/
