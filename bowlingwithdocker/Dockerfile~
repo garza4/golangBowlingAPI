@@ -1,0 +1,9 @@
+FROM golang
+
+ADD . /go/src/golangBowlingAPI
+
+RUN go install /go/src/golangBowlingAPI/bowlingServer/main.go
+
+ENTRYPOINT ["/go/bin/golangBowlingAPI/bowlingServer"]
+
+EXPOSE 5300
